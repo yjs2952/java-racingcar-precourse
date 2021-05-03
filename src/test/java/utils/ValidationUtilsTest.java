@@ -16,28 +16,36 @@ class ValidationUtilsTest {
     @MethodSource("provideCarNamesForLength")
     @DisplayName("자동차 이름의 길이가 1 ~ 5 사이인지 검증한다")
     void validateCarNameLengthTest(String carName, boolean expected) {
-        assertThat(ValidationUtils.validCarName(carName)).isEqualTo(expected);
+        assertThat(ValidationUtils.isValidLength(carName)).isEqualTo(expected);
     }
 
     @ParameterizedTest
     @MethodSource("provideCarNamesForNullAndBlank")
     @DisplayName("입력값에 null 또는 공백이 있는지 검증한다")
     void validateCarNamesTest(String carNames, boolean expected) {
-        assertThat(ValidationUtils.validCarNames(carNames)).isEqualTo(expected);
+        assertThat(ValidationUtils.isValidString(carNames)).isEqualTo(expected);
     }
 
     @ParameterizedTest
     @CsvSource(value = {"poby,crong:true", "poby:false"}, delimiter = ':')
     @DisplayName("자동차 이름이 2개 이상인지 검증한다")
     void validateHasMoreThanTwoCarsTest(String carNames, boolean expected) {
-        assertThat(ValidationUtils.validCarNames(carNames)).isEqualTo(expected);
+        // given
+        String[] splits = carNames.split(",");
+
+        // then
+        assertThat(ValidationUtils.isValidSize(splits)).isEqualTo(expected);
     }
 
     @ParameterizedTest
     @CsvSource(value = {"poby,crong:true", "poby,poby:false", "poby,crong,poby:false"}, delimiter = ':')
     @DisplayName("중복된 이름이 있는지 검증한다")
     void validateHasDuplicateNameTest(String carNames, boolean expected) {
-        assertThat(ValidationUtils.validCarNames(carNames)).isEqualTo(expected);
+        // given
+        String[] splits = carNames.split(",");
+
+        // then
+        assertThat(ValidationUtils.hasNotDuplicateNames(splits)).isEqualTo(expected);
     }
 
     private static Stream<Arguments> provideCarNamesForLength() {
@@ -45,8 +53,7 @@ class ValidationUtilsTest {
                 Arguments.of("jason", true),
                 Arguments.of("k", true),
                 Arguments.of("gandalf", false),
-                Arguments.of("", false),
-                Arguments.of(" jn", false)
+                Arguments.of("", false)
         );
     }
 
@@ -57,7 +64,7 @@ class ValidationUtilsTest {
                 Arguments.of("toby,crong ", false),
                 Arguments.of("jo hn,paul", false),
                 Arguments.of(" jin,law", false),
-                Arguments.of("", false)
+                Arguments.of(" ", false)
                 );
     }
 }

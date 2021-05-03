@@ -9,27 +9,19 @@ public class ValidationUtils {
     public static final int MIN_LENGTH = 1;
     public static final String BLANK = " ";
 
-    public static boolean validCarName(String carName) {
-        return isValidString(carName) && isValidLength(carName) ;
+    public static boolean isValidSize(String[] splits) {
+        return splits.length > MIN_LENGTH;
     }
 
-    public static boolean validCarNames(String carNames) {
-        if (!isValidString(carNames)) {
-            return false;
-        }
-        String[] splits = carNames.split(",");
-        return hasNotDuplicateNames(splits) && splits.length > MIN_LENGTH;
-    }
-
-    private static boolean hasNotDuplicateNames(String[] carNames) {
+    public static boolean hasNotDuplicateNames(String[] carNames) {
         return carNames.length == new HashSet<>(Arrays.asList(carNames)).size();
     }
 
-    private static boolean isValidString(String carName) {
+    public static boolean isValidString(String carName) {
         return carName != null && !carName.contains(BLANK);
     }
 
-    private static boolean isValidLength(String carName) {
+    public static boolean isValidLength(String carName) {
         return !carName.isEmpty() && carName.length() <= MAX_LENGTH;
     }
 }
