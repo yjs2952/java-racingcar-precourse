@@ -1,5 +1,8 @@
 package domain;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 public class ValidationUtils {
 
     public static final int MAX_LENGTH = 5;
@@ -10,7 +13,12 @@ public class ValidationUtils {
     }
 
     public static boolean validCarNames(String carNames) {
-        return isValidString(carNames) && carNames.split(",").length > 1;
+        String[] splits = carNames.split(",");
+        return hasNotDuplicateNames(splits) && isValidString(carNames) && splits.length > 1;
+    }
+
+    private static boolean hasNotDuplicateNames(String[] carNames) {
+        return carNames.length == new HashSet<>(Arrays.asList(carNames)).size();
     }
 
     private static boolean isValidString(String carName) {
