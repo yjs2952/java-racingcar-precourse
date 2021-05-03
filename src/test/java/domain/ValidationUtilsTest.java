@@ -14,24 +14,24 @@ class ValidationUtilsTest {
 
     @ParameterizedTest
     @CsvSource(value = {"gandalf,false", ",false", "k,true", "jason,true"})
-    @MethodSource("provideNamesForLength")
-    @DisplayName("이름의 길이가 1 ~ 5 사이인지 검증한다")
-    void validateDriverNameLength(String driverName, boolean expected) {
-        assertDriverName(driverName, expected);
+    @MethodSource("provideCarNamesForLength")
+    @DisplayName("자동차 이름의 길이가 1 ~ 5 사이인지 검증한다")
+    void validateCarNameLength(String carName, boolean expected) {
+        assertCarName(carName, expected);
     }
 
     @ParameterizedTest
-    @MethodSource("provideNamesForNullAndBlank")
-    @DisplayName("이름에 null 또는 공백이 있는지 검증한다")
-    void validateDriverNameHasNullOrBlank(String driverName, boolean expected) {
-        assertDriverName(driverName, expected);
+    @MethodSource("provideCarNamesForNullAndBlank")
+    @DisplayName("자동차 이름에 null 또는 공백이 있는지 검증한다")
+    void validateCarNameHasNullOrBlank(String carName, boolean expected) {
+        assertCarName(carName, expected);
     }
 
-    private void assertDriverName(String driverName, boolean expected) {
-        assertThat(ValidationUtils.validDriverName(driverName)).isEqualTo(expected);
+    private void assertCarName(String carName, boolean expected) {
+        assertThat(ValidationUtils.validCarName(carName)).isEqualTo(expected);
     }
 
-    private static Stream<Arguments> provideNamesForLength() {
+    private static Stream<Arguments> provideCarNamesForLength() {
         return Stream.of(
                 Arguments.of("jason", true),
                 Arguments.of("k", true),
@@ -41,7 +41,7 @@ class ValidationUtilsTest {
         );
     }
 
-    private static Stream<Arguments> provideNamesForNullAndBlank() {
+    private static Stream<Arguments> provideCarNamesForNullAndBlank() {
         return Stream.of(
                 Arguments.of("poby", true),
                 Arguments.of(null, false),

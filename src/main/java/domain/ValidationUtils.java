@@ -5,15 +5,15 @@ public class ValidationUtils {
     public static final int MAX_LENGTH = 5;
     public static final String BLANK = " ";
 
-    public static boolean validDriverName(String driverName) {
-        return isValidString(driverName) && isValidLength(driverName) ;
+    public static boolean validCarName(String carName) {
+        return isValidString(carName) && isValidLength(carName) ;
     }
 
-    private static boolean isValidString(String driverName) {
-        return driverName != null && !driverName.contains(BLANK);
+    private static boolean isValidString(String carName) {
+        return carName != null && !carName.contains(BLANK);
     }
 
-    private static boolean isValidLength(String driverName) {
-        return !driverName.isEmpty() && driverName.length() <= MAX_LENGTH;
+    private static boolean isValidLength(String carName) {
+        return !carName.isEmpty() && carName.length() <= MAX_LENGTH;
     }
 }
