@@ -17,6 +17,17 @@ class ValidationUtilsTest {
     @MethodSource("provideNamesForLength")
     @DisplayName("이름의 길이가 1 ~ 5 사이인지 검증한다")
     void validateDriverNameLength(String driverName, boolean expected) {
+        assertDriverName(driverName, expected);
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideNamesForNullAndBlank")
+    @DisplayName("이름에 null 또는 공백이 있는지 검증한다")
+    void validateDriverNameHasNullOrBlank(String driverName, boolean expected) {
+        assertDriverName(driverName, expected);
+    }
+
+    private void assertDriverName(String driverName, boolean expected) {
         assertThat(ValidationUtils.validDriverName(driverName)).isEqualTo(expected);
     }
 
@@ -30,4 +41,13 @@ class ValidationUtilsTest {
         );
     }
 
+    private static Stream<Arguments> provideNamesForNullAndBlank() {
+        return Stream.of(
+                Arguments.of("poby", true),
+                Arguments.of(null, false),
+                Arguments.of("toby ", false),
+                Arguments.of("jo hn", false),
+                Arguments.of(" jn", false)
+                );
+    }
 }
