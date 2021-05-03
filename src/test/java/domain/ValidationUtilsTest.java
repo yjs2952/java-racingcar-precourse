@@ -2,9 +2,7 @@ package domain;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.*;
 
 import java.util.stream.Stream;
 
@@ -17,18 +15,21 @@ class ValidationUtilsTest {
     @MethodSource("provideCarNamesForLength")
     @DisplayName("자동차 이름의 길이가 1 ~ 5 사이인지 검증한다")
     void validateCarNameLength(String carName, boolean expected) {
-        assertCarName(carName, expected);
+        assertThat(ValidationUtils.validCarName(carName)).isEqualTo(expected);
     }
 
     @ParameterizedTest
     @MethodSource("provideCarNamesForNullAndBlank")
-    @DisplayName("자동차 이름에 null 또는 공백이 있는지 검증한다")
-    void validateCarNameHasNullOrBlank(String carName, boolean expected) {
-        assertCarName(carName, expected);
+    @DisplayName("입력값에 null 또는 공백이 있는지 검증한다.")
+    void validateCarNamesTest(String carNames, boolean expected) {
+        assertThat(ValidationUtils.validCarNames(carNames)).isEqualTo(expected);
     }
 
-    private void assertCarName(String carName, boolean expected) {
-        assertThat(ValidationUtils.validCarName(carName)).isEqualTo(expected);
+    @ParameterizedTest
+    @CsvSource(value = {"poby,crong:true", "poby:false"}, delimiter = ':')
+    @DisplayName("자동차 이름이 2개 이상인지 검증한다.")
+    void validateHasOverTwoCarsTest(String carNames, boolean expected) {
+        assertThat(ValidationUtils.validCarNames(carNames)).isEqualTo(expected);
     }
 
     private static Stream<Arguments> provideCarNamesForLength() {
@@ -43,11 +44,12 @@ class ValidationUtilsTest {
 
     private static Stream<Arguments> provideCarNamesForNullAndBlank() {
         return Stream.of(
-                Arguments.of("poby", true),
+                Arguments.of("poby,crong", true),
                 Arguments.of(null, false),
-                Arguments.of("toby ", false),
-                Arguments.of("jo hn", false),
-                Arguments.of(" jn", false)
+                Arguments.of("toby,crong ", false),
+                Arguments.of("jo hn,paul", false),
+                Arguments.of(" jin,law", false),
+                Arguments.of("", false)
                 );
     }
 }

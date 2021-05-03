@@ -9,6 +9,10 @@ public class ValidationUtils {
         return isValidString(carName) && isValidLength(carName) ;
     }
 
+    public static boolean validCarNames(String carNames) {
+        return isValidString(carNames) && carNames.split(",").length > 1;
+    }
+
     private static boolean isValidString(String carName) {
         return carName != null && !carName.contains(BLANK);
     }
