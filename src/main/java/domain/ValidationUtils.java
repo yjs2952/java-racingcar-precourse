@@ -6,6 +6,7 @@ import java.util.HashSet;
 public class ValidationUtils {
 
     public static final int MAX_LENGTH = 5;
+    public static final int MIN_LENGTH = 1;
     public static final String BLANK = " ";
 
     public static boolean validCarName(String carName) {
@@ -14,7 +15,7 @@ public class ValidationUtils {
 
     public static boolean validCarNames(String carNames) {
         String[] splits = carNames.split(",");
-        return hasNotDuplicateNames(splits) && isValidString(carNames) && splits.length > 1;
+        return hasNotDuplicateNames(splits) && isValidString(carNames) && splits.length > MIN_LENGTH;
     }
 
     private static boolean hasNotDuplicateNames(String[] carNames) {
