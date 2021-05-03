@@ -1,4 +1,4 @@
-package domain;
+package utils;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -14,8 +14,11 @@ public class ValidationUtils {
     }
 
     public static boolean validCarNames(String carNames) {
+        if (!isValidString(carNames)) {
+            return false;
+        }
         String[] splits = carNames.split(",");
-        return hasNotDuplicateNames(splits) && isValidString(carNames) && splits.length > MIN_LENGTH;
+        return hasNotDuplicateNames(splits) && splits.length > MIN_LENGTH;
     }
 
     private static boolean hasNotDuplicateNames(String[] carNames) {
