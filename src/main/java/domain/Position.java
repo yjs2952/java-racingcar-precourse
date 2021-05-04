@@ -22,4 +22,12 @@ public class Position {
     public int getPosition() {
         return position;
     }
+
+    public String draw() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < position; i++) {
+            sb.append("-");
+        }
+        return sb.toString();
+    }
 }

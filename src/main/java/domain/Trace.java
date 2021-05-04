@@ -26,10 +26,6 @@ public class Trace {
     }
 
     public String drawPosition() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < position.getPosition(); i++) {
-            sb.append("-");
-        }
-        return sb.toString();
+        return position.draw();
     }
 }
