@@ -48,6 +48,15 @@ class ValidationUtilsTest {
         assertThat(ValidationUtils.hasNotDuplicateNames(splits)).isEqualTo(expected);
     }
 
+    @ParameterizedTest
+    @CsvSource(value = {"0,false", "1,true"})
+    @DisplayName("시도 횟수가 1 이상인지 검증한다")
+    void validateTryCountTest(int tryCount, boolean expected) {
+
+        // then
+        assertThat(ValidationUtils.isValidTryCount(tryCount)).isEqualTo(expected);
+    }
+
     private static Stream<Arguments> provideCarNamesForLength() {
         return Stream.of(
                 Arguments.of("jason", true),

@@ -24,4 +24,8 @@ public class ValidationUtils {
     public static boolean isValidLength(String carName) {
         return !carName.isEmpty() && carName.length() <= MAX_LENGTH;
     }
+
+    public static boolean isValidTryCount(int tryCount) {
+        return tryCount > 0;
+    }
 }
