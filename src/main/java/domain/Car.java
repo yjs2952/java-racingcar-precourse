@@ -1,26 +1,22 @@
 package domain;
 
 public class Car {
-    public static final int MOVABLE_NUMBER = 4;
-    public static final int MOVE = 1;
-    public static final int STOP = 0;
-
     private final CarName carName;
-    private final NumberGenerator numberGenerator;
+    private final Position position;
 
-    private Car(String carName, NumberGenerator generator) {
-        this.carName = CarName.of(carName);
-        this.numberGenerator = generator;
+    private Car(CarName carName, Position position) {
+        this.carName = carName;
+        this.position = position;
     }
 
-    public static Car of(String carName, NumberGenerator generator) {
-        return new Car(carName, generator);
+    public static Car of(String carName, int position) {
+        return new Car(CarName.of(carName), Position.of(position));
     }
 
-    public int move() {
-        if (numberGenerator.generate() >= MOVABLE_NUMBER) {
-            return MOVE;
+    public Trace move(MovingStrategy strategy) {
+        if (strategy.isMovable()) {
+            position.move();
         }
-        return STOP;
+        return Trace.of(carName, Position.of(position.getPosition()));
     }
 }
