@@ -16,4 +16,16 @@ public class Trace {
     public int getPosition() {
         return position.getPosition();
     }
+
+    public String getName() {
+        return this.carName.getName();
+    }
+
+    public String drawPosition() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < position.getPosition(); i++) {
+            sb.append("-");
+        }
+        return sb.toString();
+    }
 }

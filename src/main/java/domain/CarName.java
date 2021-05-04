@@ -17,6 +17,10 @@ public class CarName {
         return new CarName(name);
     }
 
+    public String getName() {
+        return name;
+    }
+
     private void validateName(String name) {
         if (!ValidationUtils.isValidLength(name)) {
             throw new IllegalArgumentException(INPUT_LENGTH_ERROR_MESSAGE);
