@@ -22,4 +22,19 @@ class CarsTest {
         // then
         assertThat(traceMessage).isEqualTo(expected);
     }
+
+    @Test
+    @DisplayName("tryMove() 호출시 우승자를 찾는지 검증한다")
+    void findWinnersTest() {
+        // guven
+        String players = "crong,poby,yoda";
+        Cars cars = Cars.of(players);
+
+        // when
+        Traces traces = cars.tryMove(() -> true);
+        String winners = traces.findWinners();
+
+        // then
+        assertThat(winners).isEqualTo(players);
+    }
 }

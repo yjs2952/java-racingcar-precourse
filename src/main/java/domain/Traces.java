@@ -26,4 +26,21 @@ public class Traces {
         return sb.toString();
     }
 
+    public String findWinners() {
+        Winners winners = new Winners();
+        int lastPosition = findLastPosition();
+
+        for (Trace trace : traces) {
+            winners.addIfLast(trace, lastPosition);
+        }
+        return winners.names();
+    }
+
+    private int findLastPosition() {
+        int maxPosition = 0;
+        for (Trace trace : traces) {
+            maxPosition = Math.max(maxPosition, trace.getPosition());
+        }
+        return maxPosition;
+    }
 }

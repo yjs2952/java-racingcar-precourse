@@ -13,6 +13,10 @@ public class Trace {
         return new Trace(carName, position);
     }
 
+    public boolean isSamePosition(int position) {
+        return this.position.isSame(position);
+    }
+
     public int getPosition() {
         return position.getPosition();
     }

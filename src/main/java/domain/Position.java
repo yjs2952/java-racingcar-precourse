@@ -15,6 +15,10 @@ public class Position {
         this.position++;
     }
 
+    public boolean isSame(int position) {
+        return this.position == position;
+    }
+
     public int getPosition() {
         return position;
     }
